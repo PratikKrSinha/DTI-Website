@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EcoWaste Connect - Entities</title>
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+  <!-- Header with logo, navigation, and auth buttons -->
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="EcoWaste Connect Logo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="waste_submission.html">Submit Waste</a></li>
+        <li><a href="analytics.html">Analytics</a></li>
+        <li><a href="rewards.html">Rewards</a></li>
+        <li><a href="account.html">My Account</a></li>
+      </ul>
+    </nav>
+    <div class="auth-buttons">
+      <button id="logoutBtn" class="btn">Sign Out</button>
+      <button id="deleteAccountBtn" class="btn delete">Delete Account</button>
+    </div>
+  </header>
+
+  <!-- Main content area -->
+  <main>
+    <!-- Portfolio Creation Section -->
+    <section id="portfolioCreation">
+      <div class="portfolio-banner">
+        <h2>Showcase Your Business</h2>
+        <p>Create your portfolio to display your waste management services and capabilities.</p>
+        <!-- This button links to the create_portfolio.html page -->
+        <button class="btn" id="createPortfolioBtn" onclick="window.location.href='create_portfolio.html'">
+          Create Portfolio
+        </button>
+      </div>
+    </section>
+
+    <!-- Section: Entities Listing -->
+    <section id="entities">
+      <h2>Available Entities</h2>
+      <div id="entitiesMessage">
+        <p>No entities available at this moment. Create your portfolio to be featured here.</p>
+      </div>
+      <div class="entities-grid">
+        <!-- Future entity cards will be added here dynamically -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 EcoWaste Connect. All rights reserved.</p>
+  </footer>
+
+  <!-- Notification Container -->
+  <div id="notification-container"></div>
+
+  <script src="home.js" type="module"></script>
+</body>
+</html>
