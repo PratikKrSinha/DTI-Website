@@ -1,40 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EcoWaste Connect - Entities</title>
-  <link rel="stylesheet" href="home.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EcoLink Connect - Entities</title>
+  <link rel="stylesheet" href="home.css" />
 </head>
 <body>
-  <!-- Header with logo, navigation, and auth buttons -->
+  <!-- Header with logo and navigation -->
   <header>
     <div class="logo">
-      <img src="logo.png" alt="EcoWaste Connect Logo">
+      <img src="logo.png" alt="EcoLink Connect Logo" />
+      <span class="site-name">EcoLink Connect</span>
     </div>
-    <nav>
+    <nav aria-label="Main Navigation">
       <ul>
         <li><a href="home.html">Home</a></li>
         <li><a href="waste_submission.html">Submit Waste</a></li>
         <li><a href="analytics.html">Analytics</a></li>
         <li><a href="rewards.html">Rewards</a></li>
-        <li><a href="account.html">My Account</a></li>
+        <li class="dropdown">
+          <a href="account.html" class="dropbtn">My Account</a>
+          <div class="dropdown-content">
+            <a href="#" id="logoutBtn">Sign Out</a>
+            <a href="#" id="deleteAccountBtn">Delete Account</a>
+          </div>
+        </li>
       </ul>
     </nav>
-    <div class="auth-buttons">
-      <button id="logoutBtn" class="btn">Sign Out</button>
-      <button id="deleteAccountBtn" class="btn delete">Delete Account</button>
-    </div>
   </header>
+
+  <!-- Location Selector Section (New) -->
+  <section id="locationSelector" aria-labelledby="locationTitle">
+    <h2 id="locationTitle">Select Your Location</h2>
+    <div class="location-search">
+      <input
+        type="text"
+        id="locationInput"
+        placeholder="Enter city or PIN code..."
+        aria-label="Location Search"
+      />
+    </div>
+    <!-- Suggestions appear here -->
+    <div id="suggestions"></div>
+  </section>
 
   <!-- Main content area -->
   <main>
     <!-- Portfolio Creation Section -->
-    <section id="portfolioCreation">
+    <section id="portfolioCreation" aria-labelledby="portfolioTitle">
       <div class="portfolio-banner">
-        <h2>Showcase Your Business</h2>
+        <h2 id="portfolioTitle">Showcase Your Business</h2>
         <p>Create your portfolio to display your waste management services and capabilities.</p>
-        <!-- This button links to the create_portfolio.html page -->
+        <!-- Button links to the create portfolio page -->
         <button class="btn" id="createPortfolioBtn" onclick="window.location.href='create_portfolio.html'">
           Create Portfolio
         </button>
@@ -42,25 +60,31 @@
     </section>
 
     <!-- Section: Entities Listing -->
-    <section id="entities">
-      <h2>Available Entities</h2>
+    <section id="entities" aria-labelledby="entitiesTitle">
+      <h2 id="entitiesTitle">Available Entities</h2>
       <div id="entitiesMessage">
         <p>No entities available at this moment. Create your portfolio to be featured here.</p>
       </div>
-      <div class="entities-grid">
-        <!-- Future entity cards will be added here dynamically -->
+      <div class="entities-grid" aria-live="polite">
+        <!-- Entity cards will be injected here dynamically -->
       </div>
     </section>
+    
+    <!-- Pagination Controls (outside the white box) -->
+    <div class="pagination-controls">
+      <button class="btn pagination-btn" id="prevPage">Previous</button>
+      <button class="btn pagination-btn" id="nextPage">Next</button>
+    </div>
   </main>
 
-  <!-- Footer -->
+  <!-- Footer (same background as page) -->
   <footer>
-    <p>&copy; 2025 EcoWaste Connect. All rights reserved.</p>
+    <p>&copy; 2025 EcoLink Connect. All rights reserved.</p>
   </footer>
 
   <!-- Notification Container -->
-  <div id="notification-container"></div>
+  <div id="notification-container" aria-live="assertive"></div>
 
-  <script src="home.js" type="module"></script>
+  <script type="module" src="home.js"></script>
 </body>
 </html>
