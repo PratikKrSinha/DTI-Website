@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // --------------------------
   // Auth State + Load Entities
   // --------------------------
-  const DEBUG = true; // Set to false to enable redirect for unauthenticated users
+  const DEBUG = true; // Set to false for redirect if unauthenticated
 
   onAuthStateChanged(auth, async (user) => {
     console.log("Auth state changed. User:", user);
@@ -150,20 +150,15 @@ document.addEventListener("DOMContentLoaded", () => {
         ...doc.data(),
       }));
 
-      grid.innerHTML = ""; // Clear existing content
-
-      if (entitiesList.length === 0) {
-        entitiesMessage.innerHTML =
-          "<p>No entities available at this moment. Create your portfolio to be featured here.</p>";
-      } else {
-        entitiesMessage.innerHTML = ""; // Clear message if entities are available
+      // If dynamic entities are available, clear the grid and render them.
+      if (entitiesList.length > 0) {
+        grid.innerHTML = ""; // Clear any static content
         entitiesList.forEach((entity) => {
           const card = document.createElement("div");
           card.className = "entity-card";
           card.tabIndex = 0; // Make card focusable
           card.setAttribute("role", "button");
           card.setAttribute("aria-label", `View details for ${entity.name}`);
-
           card.innerHTML = `
             <img src="${entity.imageUrl || "default.jpg"}" alt="${entity.name} image">
             <div class="entity-info">
@@ -171,17 +166,23 @@ document.addEventListener("DOMContentLoaded", () => {
               <p>${entity.description || "No description available."}</p>
             </div>
           `;
-          // Click handler to redirect to detailed view
           card.addEventListener("click", () => {
             window.location.href = `entity_detail.html?id=${entity.id}`;
           });
           grid.appendChild(card);
         });
+      } else {
+        // If no dynamic entities, leave static content intact.
+        if (entitiesMessage) {
+          entitiesMessage.style.display = "block";
+        }
       }
     } catch (error) {
       console.error("Error fetching entities:", error);
-      entitiesMessage.innerHTML =
-        "<p>Error loading entities. Please try again later.</p>";
+      if (entitiesMessage) {
+        entitiesMessage.innerHTML =
+          "<p>Error loading entities. Please try again later.</p>";
+      }
       showNotification("Error loading entities.", "error");
     }
   }
