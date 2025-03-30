@@ -3,49 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EcoWaste Connect | Sustainable Waste Management</title>
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
-  <!-- Link to your CSS file -->
-  <link rel="stylesheet" href="style.css" />
-  <!-- Load the consolidated JavaScript file -->
+  <title>EcoLink | Sustainable Waste Management</title>
+  <!-- Google Fonts and Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- JavaScript file -->
   <script type="module" src="app.js"></script>
+  <style>
+    /* Inline adjustments for Google button icon centering and sizing */
+    .social-btn img {
+      width: 24px;
+      height: 24px;
+      margin: 0 auto;
+      display: block;
+    }
+  </style>
 </head>
 <body>
-  <!-- Background Images Container -->
-  <div class="background-images">
-    <img src="images/login.jpg" alt="Background Image 1" />
-    <img src="images/login2.jpg" alt="Background Image 2" />
+  <!-- Background and Overlay (Using your static image "bck.jpg") -->
+  <div class="background-container">
+    <img src="images/bck.jpg" class="active" alt="Waste management">
   </div>
-
-  <!-- Header: Contains Branding and Login/Account Container -->
-  <div class="header">
-    <!-- Branding Section -->
-    <div class="branding">
-      <h1>EcoWaste Connect</h1>
-      <p>Join Our Green Community</p>
-      <p class="description">
-        EcoWaste Connect is a cutting-edge Waste Recycling and Management Platform that unites waste generators—from colleges and industries to factories and communities—with state-of-the-art recycling and processing centres. Our smart matching algorithm, real-time tracking, and incentive-based gamification drive sustainable waste management and create a circular economy for a greener future.
-      </p>
-      <!-- New Project Details Section -->
-      <div class="project-details">
-        <h2>Empowering Sustainable Futures</h2>
+  <div class="background-overlay"></div>
+  
+  <!-- Landing Content -->
+  <div class="content-wrapper">
+    <!-- Left: Main Info placed at the top -->
+    <div class="content-section">
+      <div class="main-heading">
+        <h1><i class="fas fa-recycle"></i> EcoLink</h1>
+        <p class="tagline">Transforming Waste Management Across India</p>
+      </div>
+      <div class="platform-description">
         <p>
-          Beyond efficient waste management, our platform transforms trash into opportunity. By offering real-time insights, smart matching, and rewards for eco-friendly practices, we empower communities to actively participate in creating a cleaner, greener tomorrow.
+          Welcome to EcoLink – India’s Smart Waste Network that brings together waste generators and processing centres.
+          Our platform not only streamlines recycling but also drives a circular economy for a cleaner environment.
         </p>
         <p>
-          Our mission is to foster a holistic ecosystem for sustainable waste management. We collaborate with local governments, educational institutions, and environmental organizations to implement best practices in recycling, waste-to-energy conversion, and resource recovery.
+          By leveraging real-time tracking, intelligent matching, and incentive-based engagement, we help reduce pollution and ensure sustainable waste management.
         </p>
       </div>
     </div>
-    <!-- Login/Account Container -->
-    <div class="container">
+    <!-- Right: Authentication Section (Login box shifted to the right) -->
+    <div class="auth-section">
       <div class="auth-container">
-        <!-- Sign Up Form -->
-        <form id="signupForm" class="form">
+        <!-- Sign Up Form (default visible) -->
+        <form id="signupForm" class="form active">
           <div class="form-group">
             <label for="fullName">Full Name</label>
             <input type="text" id="fullName" placeholder="Enter your full name" required />
@@ -59,43 +64,26 @@
             <div class="password-container">
               <input type="password" id="signupPassword" placeholder="Create a password" required />
               <button type="button" class="toggle-password">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M12 5C5.636 5 2 12 2 12C2 12 5.636 19 12 19C18.364 19 22 12 22 12C22 12 18.364 5 12 5Z"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <i class="fas fa-eye"></i>
               </button>
             </div>
-            <!-- Password Strength Meter -->
+            <!-- Strength Meter -->
             <div class="strength-meter">
               <div class="strength-fill"></div>
             </div>
           </div>
           <button type="submit" class="primary-btn">Create Account</button>
-          <!-- Divider with OR text -->
           <div class="divider">OR</div>
-          <!-- Google Button -->
-          <button type="button" id="googleSignUp" class="social-btn google-btn">
-            <img src="images/google-logo.png" alt="Google Logo" class="google-icon" />
+          <button type="button" id="googleSignUp" class="social-btn">
+            <img src="images/google-logo.png" alt="Google Logo">
+            Sign Up with Google
           </button>
           <div class="form-footer">
             Already have an account? <a onclick="showForm('signin')">Sign In</a>
           </div>
         </form>
-
         <!-- Sign In Form -->
-        <form id="signinForm" class="form hidden">
+        <form id="signinForm" class="form">
           <div class="form-group">
             <label for="signinEmail">Email Address</label>
             <input type="email" id="signinEmail" placeholder="Enter your email" required />
@@ -105,31 +93,15 @@
             <div class="password-container">
               <input type="password" id="signinPassword" placeholder="Enter your password" required />
               <button type="button" class="toggle-password">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M12 5C5.636 5 2 12 2 12C2 12 5.636 19 12 19C18.364 19 22 12 22 12C22 12 18.364 5 12 5Z"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <i class="fas fa-eye"></i>
               </button>
             </div>
           </div>
           <button type="submit" class="primary-btn">Sign In</button>
-          <!-- Divider with OR text -->
           <div class="divider">OR</div>
-          <!-- Google Button -->
-          <button type="button" id="googleSignIn" class="social-btn google-btn">
-            <img src="images/google-logo.png" alt="Google Logo" class="google-icon" />
+          <button type="button" id="googleSignIn" class="social-btn">
+            <img src="images/google-logo.png" alt="Google Logo">
+            Sign In with Google
           </button>
           <div class="form-footer">
             <a onclick="showForm('forgot')">Forgot Password?</a>
@@ -138,9 +110,8 @@
             Don't have an account? <a onclick="showForm('signup')">Sign Up</a>
           </div>
         </form>
-
         <!-- Forgot Password Form -->
-        <form id="forgotForm" class="form hidden">
+        <form id="forgotForm" class="form">
           <div class="form-group">
             <label for="forgotEmail">Email Address</label>
             <input type="email" id="forgotEmail" placeholder="Enter your email" required />
@@ -153,33 +124,73 @@
       </div>
     </div>
   </div>
-
+  
+  <!-- Additional Scrollable Sections -->
+  <section class="scroll-section">
+    <div class="impact-card">
+      <i class="fas fa-trash"></i>
+      <h2>850+ Tons</h2>
+      <p>Daily Waste Processed</p>
+    </div>
+    <div class="impact-card">
+      <i class="fas fa-industry"></i>
+      <h2>1.4K+ Facilities</h2>
+      <p>Verified Processing Centers</p>
+    </div>
+  </section>
+  
+  <section class="scroll-section">
+    <h2>Our Environmental Impact</h2>
+    <div class="impact-grid">
+      <div class="impact-item">
+        <i class="fas fa-co2"></i>
+        <h3>65% Reduction in Landfill Waste</h3>
+        <p>Efficient recycling methods in action</p>
+      </div>
+      <div class="impact-item">
+        <i class="fas fa-leaf"></i>
+        <h3>42% Lower Carbon Emissions</h3>
+        <p>Sustainable waste handling processes</p>
+      </div>
+      <div class="impact-item">
+        <i class="fas fa-bolt"></i>
+        <h3>Energy Generation</h3>
+        <p>Waste-to-energy powering communities</p>
+      </div>
+      <div class="impact-item">
+        <i class="fas fa-users"></i>
+        <h3>89% User Satisfaction</h3>
+        <p>Trusted by thousands of organizations</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Extra Content for Scrolling -->
+  <section class="scroll-section">
+    <h2>Learn More About EcoLink</h2>
+    <p>
+      EcoLink is dedicated to revolutionizing the way India handles waste. Our innovative platform provides actionable insights, optimizes resource recovery, and ensures environmental sustainability.
+    </p>
+    <p>
+      Explore our detailed reports, success stories, and the latest trends in waste management as you scroll down. Join us in making a lasting impact on our environment.
+    </p>
+    <p>
+      Our commitment to transparency, technology, and community engagement has made EcoLink a trusted name in sustainable waste management. Discover how we are transforming waste into opportunity.
+    </p>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="partner-logos">
+      <img src="swachh-bharat.png" alt="Swachh Bharat">
+      <img src="cpcb.png" alt="CPCB Certified">
+    </div>
+    <p>© 2025 EcoLink. Committed to the Swachh Bharat Mission</p>
+  </footer>
+  
   <!-- Loading Overlay -->
   <div id="loadingOverlay" class="loading-overlay hidden">
     <div class="spinner"></div>
   </div>
-  
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-contact">
-        <h3>Contact Us</h3>
-        <p>Email: <a href="mailto:contact@ecowasteconnect.com">contact@ecowasteconnect.com</a></p>
-      </div>
-      <div class="footer-social">
-        <h3>Follow Us</h3>
-        <ul>
-          <li><a href="#" target="_blank">Facebook</a></li>
-          <li><a href="#" target="_blank">Twitter</a></li>
-          <li><a href="#" target="_blank">Instagram</a></li>
-          <li><a href="#" target="_blank">LinkedIn</a></li>
-        </ul>
-      </div>
-      <div class="footer-info">
-        <p>EcoWaste Connect is dedicated to driving sustainability and environmental innovation. Join us in our mission for a cleaner, greener future.</p>
-        <p>&copy; 2025 EcoWaste Connect. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
 </body>
 </html>

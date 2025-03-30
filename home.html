@@ -23,6 +23,7 @@
         <li class="nav-item dropdown">
           <a href="account.html" class="nav-link dropbtn"><i class="fas fa-user-circle"></i> My Account</a>
           <div class="dropdown-content">
+            <!-- Added event.preventDefault() in the JS prevents default anchor behavior -->
             <a href="#" class="dropdown-item" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
             <a href="#" class="dropdown-item" id="deleteAccountBtn"><i class="fas fa-trash-alt"></i> Delete Account</a>
           </div>
@@ -142,6 +143,7 @@
   <!-- Notifications -->
   <div id="notification-container" aria-live="assertive"></div>
 
+  <!-- Home JS -->
   <script type="module" src="home.js"></script>
 </body>
 </html>

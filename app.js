@@ -72,7 +72,7 @@ buttonSpinnerStyle.innerHTML = `
     width: 18px;
     height: 18px;
     border: 3px solid #fff;
-    border-top: 3px solid var(--primary-color);
+    border-top: 3px solid var(--primary-green);
     border-radius: 50%;
     animation: spin 1s linear infinite;
     vertical-align: middle;
@@ -228,7 +228,7 @@ if (signupForm) {
         hideLoading();
         setButtonLoading(signupButton, false);
         signOut(auth);
-        showForm("signin");
+        showForm('signin');
       })
       .catch((error) => {
         hideLoading();
@@ -362,15 +362,17 @@ if (googleSignInButton) {
   });
 }
 
+// --------------------------
+// Form Toggling
+// --------------------------
 function showForm(formType) {
-  const forms = document.querySelectorAll(".form");
-  forms.forEach((form) => {
-    form.classList.add("hidden");
-    form.querySelectorAll("input").forEach((input) => (input.value = ""));
-  });
+  // Remove active class from all forms in the auth container.
+  const forms = document.querySelectorAll(".auth-container .form");
+  forms.forEach(form => form.classList.remove("active"));
+  // Add active class only to the target form.
   const targetForm = document.getElementById(`${formType}Form`);
   if (targetForm) {
-    targetForm.classList.remove("hidden");
+    targetForm.classList.add("active");
     setTimeout(() => {
       targetForm.querySelector("input")?.focus();
     }, 300);
@@ -378,6 +380,9 @@ function showForm(formType) {
 }
 window.showForm = showForm;
 
+// --------------------------
+// Toggle Password Visibility
+// --------------------------
 function initTogglePassword() {
   const toggleButtons = document.querySelectorAll(".toggle-password");
   toggleButtons.forEach((button) => {
@@ -385,6 +390,11 @@ function initTogglePassword() {
       const input = this.parentElement.querySelector("input");
       if (input) {
         input.type = input.type === "password" ? "text" : "password";
+        if (input.type === "text") {
+          this.innerHTML = '<i class="fas fa-eye-slash"></i>';
+        } else {
+          this.innerHTML = '<i class="fas fa-eye"></i>';
+        }
       }
     });
   });
@@ -400,12 +410,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// --------------------------
+// Spinner Style for Loading Overlay
+// --------------------------
 const spinnerStyle = document.createElement("style");
 spinnerStyle.innerHTML = `
   #loadingOverlay.hidden { display: none; }
   .spinner {
     border: 12px solid #f3f3f3;
-    border-top: 12px solid var(--primary-color);
+    border-top: 12px solid var(--primary-green);
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -417,3 +430,41 @@ spinnerStyle.innerHTML = `
   }
 `;
 document.head.appendChild(spinnerStyle);
+
+// --------------------------
+// Background and Scroll Effects
+// --------------------------
+document.addEventListener('DOMContentLoaded', () => {
+  // Adjust overlay opacity based on scroll position
+  window.addEventListener('scroll', () => {
+    const overlay = document.querySelector('.background-overlay');
+    const scrollPos = window.scrollY / 500;
+    const newOpacity = Math.min(0.6, 0.2 + scrollPos);
+    overlay.style.backgroundColor = `rgba(0,0,0,${newOpacity})`;
+  });
+
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-on-scroll');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.scroll-section').forEach(section => {
+    observer.observe(section);
+  });
+
+  // Remove background image slideshow code so that only the static image is shown.
+  // Commented out the following code block:
+  /*
+  let current = 0;
+  const images = document.querySelectorAll('.background-container img');
+  setInterval(() => {
+    images[current].classList.remove('active');
+    current = (current + 1) % images.length;
+    images[current].classList.add('active');
+  }, 8000);
+  */
+});
