@@ -3,86 +3,143 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EcoLink Connect - Entities</title>
+  <title>EcoLink Connect - Sustainable Waste Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="home.css" />
 </head>
 <body>
-  <!-- Header with logo and navigation -->
+  <!-- Header Section -->
   <header>
     <div class="logo">
-      <img src="logo.png" alt="EcoLink Connect Logo" />
+      <img src="logo.png" alt="EcoLink Connect Logo" class="logo-img" />
       <span class="site-name">EcoLink Connect</span>
     </div>
     <nav aria-label="Main Navigation">
-      <ul>
-        <li><a href="home.html">Home</a></li>
-        <li><a href="waste_submission.html">Submit Waste</a></li>
-        <li><a href="analytics.html">Analytics</a></li>
-        <li><a href="rewards.html">Rewards</a></li>
-        <li class="dropdown">
-          <a href="account.html" class="dropbtn">My Account</a>
+      <ul class="nav-list">
+        <li class="nav-item"><a href="home.html" class="nav-link active"><i class="fas fa-home"></i> Home</a></li>
+        <li class="nav-item"><a href="waste_submission.html" class="nav-link"><i class="fas fa-recycle"></i> Submit Waste</a></li>
+        <li class="nav-item"><a href="analytics.html" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a></li>
+        <li class="nav-item"><a href="rewards.html" class="nav-link"><i class="fas fa-award"></i> Rewards</a></li>
+        <li class="nav-item dropdown">
+          <a href="account.html" class="nav-link dropbtn"><i class="fas fa-user-circle"></i> My Account</a>
           <div class="dropdown-content">
-            <a href="#" id="logoutBtn">Sign Out</a>
-            <a href="#" id="deleteAccountBtn">Delete Account</a>
+            <a href="#" class="dropdown-item" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+            <a href="#" class="dropdown-item" id="deleteAccountBtn"><i class="fas fa-trash-alt"></i> Delete Account</a>
           </div>
         </li>
       </ul>
     </nav>
   </header>
 
-  <!-- Location Selector Section (New) -->
-  <section id="locationSelector" aria-labelledby="locationTitle">
-    <h2 id="locationTitle">Select Your Location</h2>
-    <div class="location-search">
-      <input
-        type="text"
-        id="locationInput"
-        placeholder="Enter city or PIN code..."
-        aria-label="Location Search"
-      />
+  <!-- Location Selector -->
+  <section class="location-section" aria-labelledby="locationTitle">
+    <div class="location-container">
+      <h2 id="locationTitle" class="section-title"><i class="fas fa-map-marker-alt"></i> Select Your Location</h2>
+      <div class="location-search-box">
+        <div class="search-input-container">
+          <input
+            type="text"
+            id="locationInput"
+            class="location-input"
+            placeholder="Enter city or PIN code..."
+            aria-label="Location Search"
+          />
+          <button class="location-search-btn" aria-label="Search location">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+        <div id="suggestions" class="location-suggestions"></div>
+      </div>
     </div>
-    <!-- Suggestions appear here -->
-    <div id="suggestions"></div>
   </section>
 
-  <!-- Main content area -->
-  <main>
-    <!-- Portfolio Creation Section -->
-    <section id="portfolioCreation" aria-labelledby="portfolioTitle">
-      <div class="portfolio-banner">
-        <h2 id="portfolioTitle">Showcase Your Business</h2>
-        <p>Create your portfolio to display your waste management services and capabilities.</p>
-        <!-- Button links to the create portfolio page -->
-        <button class="btn" id="createPortfolioBtn" onclick="window.location.href='create_portfolio.html'">
-          Create Portfolio
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Portfolio Banner -->
+    <section class="portfolio-banner" aria-labelledby="portfolioTitle">
+      <div class="banner-content">
+        <div class="banner-text">
+          <h2 id="portfolioTitle" class="banner-title">Showcase Your Eco-Friendly Business</h2>
+          <p class="banner-description">Join our network of sustainable waste management providers and reach new customers.</p>
+        </div>
+        <button class="cta-button" onclick="window.location.href='create_portfolio.html'">
+          Create Portfolio <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+      <div class="banner-illustration">
+        <img src="eco-illustration.svg" alt="Eco-friendly illustration" aria-hidden="true">
+      </div>
+    </section>
+
+    <!-- Entities Section -->
+    <section class="entities-section" aria-labelledby="entitiesTitle">
+      <h2 id="entitiesTitle" class="section-title"><i class="fas fa-building"></i> Available Entities</h2>
+      
+      <div class="entities-grid" aria-live="polite">
+        <!-- Example Entity Card (Dynamic content would replace this) -->
+        <article class="entity-card">
+          <div class="card-header">
+            <img src="recycling-center.jpg" alt="Green Valley Recycling Center" class="card-image">
+            <span class="rating-badge"><i class="fas fa-star"></i> 4.8</span>
+          </div>
+          <div class="card-body">
+            <h3 class="entity-name">Green Valley Recycling Center</h3>
+            <p class="entity-location"><i class="fas fa-map-marker-alt"></i> 5km away</p>
+            <div class="entity-tags">
+              <span class="tag plastic">Plastic</span>
+              <span class="tag electronic">E-Waste</span>
+            </div>
+            <p class="entity-description">Specializing in plastic recycling and e-waste management with ISO 14001 certification.</p>
+          </div>
+          <div class="card-footer">
+            <button class="action-button view-details">View Details</button>
+            <button class="action-button contact"><i class="fas fa-envelope"></i></button>
+          </div>
+        </article>
+
+        <!-- No Entities Message -->
+        <div class="empty-state" id="entitiesMessage">
+          <i class="fas fa-leaf empty-icon"></i>
+          <h3 class="empty-title">No Entities Found</h3>
+          <p class="empty-text">Be the first to create a portfolio in your area!</p>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination-container">
+        <button class="pagination-button prev" id="prevPage" disabled>
+          <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <div class="page-indicator">Page 1 of 5</div>
+        <button class="pagination-button next" id="nextPage">
+          Next <i class="fas fa-chevron-right"></i>
         </button>
       </div>
     </section>
-
-    <!-- Section: Entities Listing -->
-    <section id="entities" aria-labelledby="entitiesTitle">
-      <h2 id="entitiesTitle">Available Entities</h2>
-      <div id="entitiesMessage">
-        <p>No entities available at this moment. Create your portfolio to be featured here.</p>
-      </div>
-      <div class="entities-grid" aria-live="polite">
-        <!-- Entity cards will be injected here dynamically -->
-      </div>
-    </section>
-    
-    <!-- Pagination Controls (outside the white box) -->
-    <div class="pagination-controls">
-      <button class="btn pagination-btn" id="prevPage">Previous</button>
-      <button class="btn pagination-btn" id="nextPage">Next</button>
-    </div>
   </main>
 
-  <!-- Footer (same background as page) -->
-  <footer>
-    <p>&copy; 2025 EcoLink Connect. All rights reserved.</p>
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-section about">
+        <h4 class="footer-title">About EcoLink</h4>
+        <p>Connecting communities with sustainable waste management solutions since 2023.</p>
+      </div>
+      <div class="footer-section links">
+        <h4 class="footer-title">Quick Links</h4>
+        <ul>
+          <li><a href="#"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
+          <li><a href="#"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
+          <li><a href="#"><i class="fas fa-angle-right"></i> Contact Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 EcoLink Connect. All rights reserved.</p>
+    </div>
   </footer>
 
-  <!-- Notification Container -->
+  <!-- Notifications -->
   <div id="notification-container" aria-live="assertive"></div>
 
   <script type="module" src="home.js"></script>
