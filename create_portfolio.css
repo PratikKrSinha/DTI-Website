@@ -253,3 +253,30 @@ textarea {
   padding: 3rem 5% 1rem;
   margin-top: 4rem;
 }
+
+/* Notification Styles */
+#notification-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.notification {
+  background-color: var(--primary-color);
+  color: var(--light-text);
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin-bottom: 1rem;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.notification.error {
+  background-color: #d32f2f;
+}
+
+.notification.success {
+  background-color: var(--primary-color);
+}

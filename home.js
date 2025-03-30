@@ -10,7 +10,9 @@ import {
   doc, 
   getDoc, 
   collection, 
-  getDocs 
+  getDocs, 
+  query,
+  where
 } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
 // --------------------------
@@ -20,7 +22,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCRwnxodEX2oy0RVVfAkNPA2xTRCfEXfUk",
   authDomain: "login-ecowaste.firebaseapp.com",
   projectId: "login-ecowaste",
-  storageBucket: "login-ecowaste.firebasestorage.app",
+  storageBucket: "login-ecowaste.appspot.com",  // Corrected storageBucket format
   messagingSenderId: "113898663795",
   appId: "1:113898663795:web:920c7e261d25f3adeedf06"
 };
@@ -46,11 +48,27 @@ function showNotification(message, type = "success") {
 }
 
 // --------------------------
+// Global Variable to Store Current Pincode
+// --------------------------
+let currentPincode = null;
+
+// --------------------------
+// Empty State Markup (Preserved)
+// --------------------------
+const emptyStateMarkup = `
+  <div class="empty-state" id="entitiesMessage">
+    <i class="fas fa-leaf empty-icon"></i>
+    <h3 class="empty-title">No Entities Found</h3>
+    <p class="empty-text">Be the first to create a portfolio in your area!</p>
+  </div>
+`;
+
+// --------------------------
 // Wait for DOM Content Loaded
 // --------------------------
 document.addEventListener("DOMContentLoaded", () => {
   // --------------------------
-  // Auth State + Load Entities
+  // Auth State + Load Portfolios
   // --------------------------
   const DEBUG = true; // Set to false for redirect if unauthenticated
 
@@ -61,7 +79,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const userDocRef = doc(db, "users", user.uid);
         const userDocSnap = await getDoc(userDocRef);
         console.log("User data from Firestore:", userDocSnap.data());
-        loadEntities();
+        // If a valid pincode is already set, load portfolios
+        if (currentPincode) {
+          loadPortfolios();
+        }
       } catch (error) {
         console.error("Error fetching user data:", error);
         showNotification("Error loading user data", "error");
@@ -136,54 +157,66 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --------------------------
-  // Load Entities from Firestore
+  // Load Portfolios from Firestore Based on Pincode
   // --------------------------
-  async function loadEntities() {
-    const entitiesMessage = document.getElementById("entitiesMessage");
+  async function loadPortfolios() {
     const grid = document.querySelector(".entities-grid");
 
+    // If no valid pincode is set, show the preserved empty state markup.
+    if (!currentPincode) {
+      grid.innerHTML = emptyStateMarkup;
+      return;
+    }
+
     try {
-      const entitiesCol = collection(db, "entities");
-      const entitiesSnapshot = await getDocs(entitiesCol);
-      const entitiesList = entitiesSnapshot.docs.map((doc) => ({
+      // Query portfolios where the pincode field matches currentPincode
+      const portfoliosQuery = query(
+        collection(db, "portfolios"),
+        where("pincode", "==", currentPincode)
+      );
+      const portfoliosSnapshot = await getDocs(portfoliosQuery);
+      const portfoliosList = portfoliosSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
 
-      // If dynamic entities are available, clear the grid and render them.
-      if (entitiesList.length > 0) {
-        grid.innerHTML = ""; // Clear any static content
-        entitiesList.forEach((entity) => {
-          const card = document.createElement("div");
+      // Clear the grid for fresh data
+      grid.innerHTML = "";
+
+      if (portfoliosList.length > 0) {
+        portfoliosList.forEach((portfolio) => {
+          // Create a card for each portfolio
+          const card = document.createElement("article");
           card.className = "entity-card";
-          card.tabIndex = 0; // Make card focusable
+          card.tabIndex = 0;
           card.setAttribute("role", "button");
-          card.setAttribute("aria-label", `View details for ${entity.name}`);
+          card.setAttribute("aria-label", `View details for ${portfolio.businessName}`);
           card.innerHTML = `
-            <img src="${entity.imageUrl || "default.jpg"}" alt="${entity.name} image">
-            <div class="entity-info">
-              <h3>${entity.name}</h3>
-              <p>${entity.description || "No description available."}</p>
+            <div class="card-header">
+              <img src="default.jpg" alt="${portfolio.businessName} image" class="card-image">
+            </div>
+            <div class="card-body">
+              <h3 class="entity-name">${portfolio.businessName}</h3>
+              <p class="entity-location"><i class="fas fa-map-marker-alt"></i> ${portfolio.location}</p>
+              <div class="entity-tags">
+                ${portfolio.wasteTypes.map(type => `<span class="tag">${type}</span>`).join("")}
+              </div>
+              <p class="entity-description">${portfolio.additionalInfo || "No description available."}</p>
             </div>
           `;
           card.addEventListener("click", () => {
-            window.location.href = `entity_detail.html?id=${entity.id}`;
+            window.location.href = `entity_detail.html?id=${portfolio.id}`;
           });
           grid.appendChild(card);
         });
       } else {
-        // If no dynamic entities, leave static content intact.
-        if (entitiesMessage) {
-          entitiesMessage.style.display = "block";
-        }
+        // If no portfolios match the current pincode, show the empty state markup.
+        grid.innerHTML = emptyStateMarkup;
       }
     } catch (error) {
-      console.error("Error fetching entities:", error);
-      if (entitiesMessage) {
-        entitiesMessage.innerHTML =
-          "<p>Error loading entities. Please try again later.</p>";
-      }
-      showNotification("Error loading entities.", "error");
+      console.error("Error fetching portfolios:", error);
+      grid.innerHTML = emptyStateMarkup;
+      showNotification("Error loading portfolios.", "error");
     }
   }
 
@@ -195,10 +228,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (locationInput && suggestionsDiv) {
     locationInput.addEventListener("input", async function () {
-      const query = this.value.trim();
-      if (query.length > 2) {
+      const queryStr = this.value.trim();
+      if (queryStr.length > 2) {
         try {
-          const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=IN&limit=5`;
+          const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(queryStr)}&countrycodes=IN&limit=5`;
           const response = await fetch(url);
           const data = await response.json();
 
@@ -212,7 +245,20 @@ document.addEventListener("DOMContentLoaded", () => {
               locationInput.value = place.display_name;
               suggestionsDiv.innerHTML = "";
               showNotification(`Location set to: ${place.display_name}`, "success");
-              // Optionally, store or use the location information as needed.
+
+              // Try to extract a 6-digit pincode from the display name
+              const postcodeMatch = place.display_name.match(/\b\d{6}\b/);
+              if (postcodeMatch) {
+                currentPincode = postcodeMatch[0];
+                console.log("Extracted PIN code:", currentPincode);
+                // Load portfolios after setting the pincode
+                loadPortfolios();
+              } else {
+                currentPincode = null;
+                showNotification("No valid 6-digit PIN code found in the selected location.", "error");
+                // Clear the grid if no valid pincode is found
+                document.querySelector(".entities-grid").innerHTML = emptyStateMarkup;
+              }
             });
             suggestionsDiv.appendChild(option);
           });

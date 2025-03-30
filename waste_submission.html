@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Portfolios - EcoLink Connect</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="waste_submission.css" />
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="EcoLink Connect Logo" class="logo-img" />
+      <span class="site-name">EcoLink Connect</span>
+    </div>
+    <nav aria-label="Main Navigation">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="home.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+        <li class="nav-item"><a href="waste_submission.html" class="nav-link active"><i class="fas fa-recycle"></i> Submit Waste</a></li>
+        <li class="nav-item"><a href="analytics.html" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a></li>
+        <li class="nav-item"><a href="rewards.html" class="nav-link"><i class="fas fa-award"></i> Rewards</a></li>
+        <li class="nav-item dropdown">
+          <a href="account.html" class="nav-link dropbtn"><i class="fas fa-user-circle"></i> My Account</a>
+          <div class="dropdown-content">
+            <a href="#" class="dropdown-item" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+            <a href="#" class="dropdown-item" id="deleteAccountBtn"><i class="fas fa-trash-alt"></i> Delete Account</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content: My Portfolios -->
+  <main class="main-content">
+    <section class="my-portfolios-section">
+      <h2 class="section-title"><i class="fas fa-folder-open"></i> My Portfolios</h2>
+      <div class="portfolios-grid" id="portfoliosGrid">
+        <!-- This empty state will be shown if no portfolios exist -->
+        <div class="empty-state" id="emptyState">
+          <i class="fas fa-leaf empty-icon"></i>
+          <h3 class="empty-title">No Entities Found</h3>
+          <p class="empty-text">You haven't created any portfolios yet!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-section about">
+        <h4 class="footer-title">About EcoLink</h4>
+        <p>Connecting communities with sustainable waste management solutions since 2023.</p>
+      </div>
+      <div class="footer-section links">
+        <h4 class="footer-title">Quick Links</h4>
+        <ul>
+          <li><a href="#"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
+          <li><a href="#"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
+          <li><a href="#"><i class="fas fa-angle-right"></i> Contact Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 EcoLink Connect. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Notifications -->
+  <div id="notification-container" aria-live="assertive"></div>
+
+  <!-- My Portfolios JS -->
+  <script type="module" src="waste_submission.js"></script>
+</body>
+</html>
