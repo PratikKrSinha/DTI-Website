@@ -12,7 +12,7 @@
   <!-- JavaScript file -->
   <script type="module" src="app.js"></script>
   <style>
-    /* Inline adjustments for Google button icon centering and sizing */
+    /* Inline adjustment for Google button icon centering */
     .social-btn img {
       width: 24px;
       height: 24px;
@@ -22,34 +22,33 @@
   </style>
 </head>
 <body>
-  <!-- Background and Overlay (Using your static image "bck.jpg") -->
+  <!-- Background and Overlay -->
   <div class="background-container">
     <img src="images/bck.jpg" class="active" alt="Waste management">
   </div>
   <div class="background-overlay"></div>
   
-  <!-- Landing Content -->
+  <!-- Main Content -->
   <div class="content-wrapper">
-    <!-- Left: Main Info placed at the top -->
-    <div class="content-section">
-      <div class="main-heading">
+    <div class="info-section">
+      <header class="main-heading">
         <h1><i class="fas fa-recycle"></i> EcoLink</h1>
         <p class="tagline">Transforming Waste Management Across India</p>
-      </div>
+      </header>
       <div class="platform-description">
         <p>
           Welcome to EcoLink – India’s Smart Waste Network that brings together waste generators and processing centres.
-          Our platform not only streamlines recycling but also drives a circular economy for a cleaner environment.
+          Our platform streamlines recycling while driving a circular economy for a cleaner environment.
         </p>
         <p>
-          By leveraging real-time tracking, intelligent matching, and incentive-based engagement, we help reduce pollution and ensure sustainable waste management.
+          By leveraging real-time tracking, intelligent matching, and incentive-based engagement, we reduce pollution and ensure sustainability.
         </p>
       </div>
     </div>
-    <!-- Right: Authentication Section (Login box shifted to the right) -->
-    <div class="auth-section">
+    
+    <aside class="auth-section">
       <div class="auth-container">
-        <!-- Sign Up Form (default visible) -->
+        <!-- Sign Up Form (default active) -->
         <form id="signupForm" class="form active">
           <div class="form-group">
             <label for="fullName">Full Name</label>
@@ -67,7 +66,6 @@
                 <i class="fas fa-eye"></i>
               </button>
             </div>
-            <!-- Strength Meter -->
             <div class="strength-meter">
               <div class="strength-fill"></div>
             </div>
@@ -82,6 +80,7 @@
             Already have an account? <a onclick="showForm('signin')">Sign In</a>
           </div>
         </form>
+        
         <!-- Sign In Form -->
         <form id="signinForm" class="form">
           <div class="form-group">
@@ -110,6 +109,7 @@
             Don't have an account? <a onclick="showForm('signup')">Sign Up</a>
           </div>
         </form>
+        
         <!-- Forgot Password Form -->
         <form id="forgotForm" class="form">
           <div class="form-group">
@@ -122,11 +122,11 @@
           </div>
         </form>
       </div>
-    </div>
+    </aside>
   </div>
   
-  <!-- Additional Scrollable Sections -->
-  <section class="scroll-section">
+  <!-- Impact & Information Sections -->
+  <section class="scroll-section impact-overview">
     <div class="impact-card">
       <i class="fas fa-trash"></i>
       <h2>850+ Tons</h2>
@@ -139,7 +139,7 @@
     </div>
   </section>
   
-  <section class="scroll-section">
+  <section class="scroll-section impact-details">
     <h2>Our Environmental Impact</h2>
     <div class="impact-grid">
       <div class="impact-item">
@@ -165,28 +165,57 @@
     </div>
   </section>
   
-  <!-- Extra Content for Scrolling -->
-  <section class="scroll-section">
+  <section class="scroll-section learn-more">
     <h2>Learn More About EcoLink</h2>
     <p>
-      EcoLink is dedicated to revolutionizing the way India handles waste. Our innovative platform provides actionable insights, optimizes resource recovery, and ensures environmental sustainability.
+      EcoLink is revolutionizing waste management in India by providing actionable insights, optimizing resource recovery, and ensuring environmental sustainability.
     </p>
     <p>
-      Explore our detailed reports, success stories, and the latest trends in waste management as you scroll down. Join us in making a lasting impact on our environment.
-    </p>
-    <p>
-      Our commitment to transparency, technology, and community engagement has made EcoLink a trusted name in sustainable waste management. Discover how we are transforming waste into opportunity.
+      Explore our detailed reports, success stories, and the latest trends in waste management. Join us in turning waste into opportunity.
     </p>
   </section>
   
   <!-- Footer -->
-  <footer class="main-footer">
+<footer class="main-footer">
+  <div class="footer-container">
     <div class="partner-logos">
       <img src="swachh-bharat.png" alt="Swachh Bharat">
       <img src="cpcb.png" alt="CPCB Certified">
     </div>
-    <p>© 2025 EcoLink. Committed to the Swachh Bharat Mission</p>
-  </footer>
+    <div class="footer-links">
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About EcoLink</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Impact</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Reports</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Case Studies</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Follow Us</h3>
+        <ul class="social-icons">
+          <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+          <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+          <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+          <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copyright">© 2025 EcoLink. Committed to the Swachh Bharat Mission</p>
+  </div>
+</footer>
+
   
   <!-- Loading Overlay -->
   <div id="loadingOverlay" class="loading-overlay hidden">
@@ -194,4 +223,3 @@
   </div>
 </body>
 </html>
- 
