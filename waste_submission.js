@@ -23,7 +23,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCRwnxodEX2oy0RVVfAkNPA2xTRCfEXfUk",
   authDomain: "login-ecowaste.firebaseapp.com",
   projectId: "login-ecowaste",
-  storageBucket: "login-ecowaste.appspot.com",  // Corrected storageBucket format
+  storageBucket: "login-ecowaste.appspot.com",
   messagingSenderId: "113898663795",
   appId: "1:113898663795:web:920c7e261d25f3adeedf06"
 };
@@ -57,7 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
   onAuthStateChanged(auth, async (user) => {
     console.log("Auth state changed. User:", user);
     if (user) {
-      // Optionally, load user details if needed:
       try {
         const userDocRef = doc(db, "users", user.uid);
         const userDocSnap = await getDoc(userDocRef);
@@ -66,17 +65,15 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Error fetching user data:", error);
         showNotification("Error loading user data", "error");
       }
-      // Load portfolios created by this user (regardless of location)
       loadMyPortfolios(user.uid);
     } else {
       console.warn("No authenticated user found.");
-      // Optionally, redirect to login if not in debug mode
       window.location.href = "index.html";
     }
   });
 
   // --------------------------
-  // Sign Out Functionality (if needed)
+  // Sign Out Functionality
   // --------------------------
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
@@ -95,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --------------------------
-  // Delete Account Functionality (if needed)
+  // Delete Account Functionality
   // --------------------------
   const deleteAccountBtn = document.getElementById("deleteAccountBtn");
   if (deleteAccountBtn) {
@@ -143,6 +140,9 @@ async function loadMyPortfolios(userId) {
         // Create a card element for each portfolio
         const card = document.createElement("article");
         card.className = "entity-card";
+        card.tabIndex = 0;
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-label", `View details for ${portfolio.businessName}`);
         card.innerHTML = `
           <div class="card-header">
             <img src="${portfolio.imageUrl || 'default.jpg'}" alt="${portfolio.businessName} image" class="card-image">
@@ -169,7 +169,6 @@ async function loadMyPortfolios(userId) {
             try {
               await deleteDoc(doc(db, "portfolios", portfolio.id));
               showNotification("Portfolio deleted successfully!", "success");
-              // Reload the portfolios after deletion
               loadMyPortfolios(userId);
             } catch (error) {
               console.error("Error deleting portfolio:", error);
@@ -178,11 +177,10 @@ async function loadMyPortfolios(userId) {
           }
         });
 
-        // Edit button functionality – redirect to an edit page (implement that page separately)
+        // Edit button functionality – redirect to an edit page
         const editBtn = card.querySelector(".action-button.edit");
         editBtn.addEventListener("click", (e) => {
           e.stopPropagation();
-          // Redirect to edit page with portfolio ID as query parameter
           window.location.href = `edit_portfolio.html?id=${portfolio.id}`;
         });
 

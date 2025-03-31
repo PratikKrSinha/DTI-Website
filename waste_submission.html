@@ -16,10 +16,19 @@
     </div>
     <nav aria-label="Main Navigation">
       <ul class="nav-list">
-        <li class="nav-item"><a href="home.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
-        <li class="nav-item"><a href="waste_submission.html" class="nav-link active"><i class="fas fa-recycle"></i> Submit Waste</a></li>
-        <li class="nav-item"><a href="analytics.html" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a></li>
-        <li class="nav-item"><a href="rewards.html" class="nav-link"><i class="fas fa-award"></i> Rewards</a></li>
+        <li class="nav-item">
+          <a href="home.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+        </li>
+        <!-- Set active class for Submit Waste so it stays highlighted -->
+        <li class="nav-item">
+          <a href="waste_submission.html" class="nav-link active"><i class="fas fa-recycle"></i> Submit Waste</a>
+        </li>
+        <li class="nav-item">
+          <a href="analytics.html" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a>
+        </li>
+        <li class="nav-item">
+          <a href="rewards.html" class="nav-link"><i class="fas fa-award"></i> Rewards</a>
+        </li>
         <li class="nav-item dropdown">
           <a href="account.html" class="nav-link dropbtn"><i class="fas fa-user-circle"></i> My Account</a>
           <div class="dropdown-content">
@@ -33,10 +42,10 @@
 
   <!-- Main Content: My Portfolios -->
   <main class="main-content">
-    <section class="my-portfolios-section">
-      <h2 class="section-title"><i class="fas fa-folder-open"></i> My Portfolios</h2>
-      <div class="portfolios-grid" id="portfoliosGrid">
-        <!-- This empty state will be shown if no portfolios exist -->
+    <section class="my-portfolios-section" aria-labelledby="myPortfoliosTitle">
+      <h2 id="myPortfoliosTitle" class="section-title"><i class="fas fa-folder-open"></i> My Portfolios</h2>
+      <div class="entities-grid" id="portfoliosGrid">
+        <!-- Empty state markup shown when no portfolios exist -->
         <div class="empty-state" id="emptyState">
           <i class="fas fa-leaf empty-icon"></i>
           <h3 class="empty-title">No Entities Found</h3>
